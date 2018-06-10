@@ -3,17 +3,26 @@
 import uuid
 import json
 import datetime
+import re
 
 class BaseModel:
     """ This is the Base class. """
 
     def __init__(self, *args, **kwargs):
         """ Initialize the BaseModel class."""
-#        if len(kwargs) != 0:
-#            to_dict(**kwargs)
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if len(kwargs) != 0:
+            self.__dict__ = kwargs
+            self.created_at = datetime.datetime\
+                              (*map(int, re.split('[^\d]',\
+                                                  self.created_at)[:]))
+            self.updated_at = datetime.datetime\
+                              (*map(int, re.split('[^\d]',\
+                                                  self.updated_at)[:]))
+
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """Function returns string rep of the display function."""
