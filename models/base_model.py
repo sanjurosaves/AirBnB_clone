@@ -16,10 +16,10 @@ class BaseModel:
             self.id = id
 
         if created_at is None:
-            self.created_at = datetime.datetime.now().isoformat()
+            self.created_at = datetime.datetime.now()
 
         if updated_at is None:
-            self.updated_at = datetime.datetime.now().isoformat()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """Function returns string rep of the display function."""
@@ -27,7 +27,7 @@ class BaseModel:
             + str(self.__dict__)
 
     def save(self):
-        self.updated_at = datetime.datetime.now().isoformat()
+        self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
         """Adds items to a_dict."""
@@ -37,9 +37,9 @@ class BaseModel:
             if key[i] == "id":
                 a_dict[key[i]] = self.id
             if key[i] == "created_at":
-                a_dict[key[i]] = self.created_at
+                a_dict[key[i]] = self.created_at.isoformat()
             if key[i] == "updated_at":
-                a_dict[key[i]] = self.updated_at
+                a_dict[key[i]] = self.updated_at.isoformat()
             if key[i] == "__class__":
                 a_dict[key[i]] = self.__class__.__name__
             if key[i] == "my_number":
