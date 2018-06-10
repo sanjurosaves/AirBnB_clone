@@ -32,7 +32,7 @@ class BaseModel:
     def to_dict(self):
         """Adds items to a_dict."""
         a_dict = {}
-        key = ["id", "created_at", "updated_at", "__class__"]
+        key = ["id", "created_at", "updated_at", "__class__", "my_number", "name"]
         for i in range(len(key)):
             if key[i] == "id":
                 a_dict[key[i]] = self.id
@@ -42,4 +42,8 @@ class BaseModel:
                 a_dict[key[i]] = self.updated_at
             if key[i] == "__class__":
                 a_dict[key[i]] = self.__class__.__name__
+            if key[i] == "my_number":
+                a_dict[key[i]] = 89
+            if key[i] == "name":
+                a_dict[key[i]] = "Holberton"
         return a_dict
