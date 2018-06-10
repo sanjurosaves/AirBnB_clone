@@ -27,7 +27,7 @@ class BaseModel:
             + str(self.__dict__)
 
     def save(self):
-        self.updated_at = datetime.datetime.now
+        self.updated_at = datetime.datetime.now().isoformat()
 
     def to_dict(self):
         """Adds items to a_dict."""
@@ -41,5 +41,5 @@ class BaseModel:
             if key[i] == "updated_at":
                 a_dict[key[i]] = self.updated_at
             if key[i] == "__class__":
-                a_dict[key[i]] = self.__class__
+                a_dict[key[i]] = self.__class__.__name__
         return a_dict
