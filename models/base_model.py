@@ -16,10 +16,10 @@ class BaseModel:
             self.id = id
 
         if created_at is None:
-            self.created_at = datetime.datetime.now
+            self.created_at = datetime.datetime.now().isoformat()
 
         if updated_at is None:
-            self.update_at = datetime.datetime.now
+            self.updated_at = datetime.datetime.now().isoformat()
 
     def __str__(self):
         """Function returns string rep of the display function."""
