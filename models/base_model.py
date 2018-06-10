@@ -26,6 +26,9 @@ class BaseModel:
         return "[BaseModel] (" + str(self.id) + ") " \
             + str(self.__dict__)
 
+    def save(self):
+        self.updated_at = datetime.datetime.now
+
     def to_dict(self):
         """Adds items to a_dict."""
         a_dict = {}
