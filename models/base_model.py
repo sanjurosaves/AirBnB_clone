@@ -1,22 +1,25 @@
 #!/usr/bin/python3
-"""
-Module defines base class.
-"""
+""" Module defines base class. """
+import uuid
 import json
 import datetime
 
 class BaseModel:
-    """
-    This is the Base class.
-    """
+    """ This is the Base class. """
     __nb_objects = 0
 
-    def __init__(self, id=None, created_at, updated_at):
+    def __init__(self, created_at=None, updated_at=None, id=None):
         """ Initialize the BaseModel class."""
-        self.id = id
-        self.created_at = datetime.datetime.now
-        self.update_at = datetime.datetime.now
-        self.y = y
+        if id is None:
+            self.id = str(uuid.uuid4())
+        else:
+            self.id = id
+
+        if created_at is None:
+            self.created_at = datetime.datetime.now
+
+        if updated_at is None:
+            self.update_at = datetime.datetime.now
 
     def __str__(self):
         """Function returns string rep of the display function."""
