@@ -14,8 +14,8 @@ class BaseModel:
     def __init__(self, id=None, created_at, updated_at):
         """ Initialize the BaseModel class."""
         self.id = id
-        self.created_at = created_at
-        self.x = x
+        self.created_at = datetime.datetime.now
+        self.update_at = datetime.datetime.now
         self.y = y
 
     def __str__(self):
