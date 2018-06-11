@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif arg == "BaseModel":
             inst = BaseModel()
-            inst.save()
+            inst.new_inst()
             print(inst.id)
         else:
             print("** class doesn't exist **")
@@ -57,6 +57,21 @@ class HBNBCommand(cmd.Cmd):
                     print(obj)
                     return
             print("** no instance found **")
+
+    def do_all(self, line):
+        """prints all string reps of all instances of all or specified class"""
+        all_objs = storage.all()
+        args = line.split()
+
+        try:
+            cls = args[0]
+        except:
+            cls = ""
+
+        if cls == "":
+            for obj_id in all_objs.keys():
+                obj = all_objs[obj_id]
+                print(obj)
 
     def emptyline(self):
         """ overwrites Cmd.emptyline() """
