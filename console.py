@@ -13,6 +13,8 @@ import models.engine
 class HBNBCommand(cmd.Cmd):
     """Our command prompt."""
 
+    cls_names = ["BaseModel"]
+
     def do_quit(self, line):
         """Exits the program."""
         return True
@@ -27,8 +29,8 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
         elif arg == "BaseModel":
-            inst = BaseModel()
-            inst.new_inst()
+            inst = eval(arg)()
+            inst.save()
             print(inst.id)
         else:
             print("** class doesn't exist **")
@@ -72,6 +74,12 @@ class HBNBCommand(cmd.Cmd):
             for obj_id in all_objs.keys():
                 obj = all_objs[obj_id]
                 print(obj)
+        elif cls not in self.cls_names:
+            print("** class doesn't exist **")
+        else:
+            for key, obj in all_objs.items():
+                if obj.__class__.__name__ == cls:
+                    print(obj)
 
     def emptyline(self):
         """ overwrites Cmd.emptyline() """
