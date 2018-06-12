@@ -8,12 +8,13 @@ from models.base_model import BaseModel
 from models import storage
 import models
 import models.engine
+from models.user  import User
 
 
 class HBNBCommand(cmd.Cmd):
     """Our command prompt."""
 
-    cls_names = ["BaseModel", "User"]
+    cls_names = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, line):
         """Exits the program."""
@@ -28,11 +29,14 @@ class HBNBCommand(cmd.Cmd):
         """ creates BaseModel instance, saves it to JSON, prints the id """
         if arg == "":
             print("** class name missing **")
-        elif arg == "BaseModel":
-            inst = eval(arg)()
-            inst.save()
-            print(inst.id)
-        else:
+        check = 0
+        for item in HBNBCommand.cls_names:
+            if item == arg:
+                inst = eval(arg)()
+                inst.save()
+                print(inst.id)
+                check = 1
+        if check == 0:
             print("** class doesn't exist **")
 
     def do_show(self, line):
