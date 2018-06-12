@@ -13,7 +13,7 @@ import models.engine
 class HBNBCommand(cmd.Cmd):
     """Our command prompt."""
 
-    cls_names = ["BaseModel"]
+    cls_names = ["BaseModel", "User"]
 
     def do_quit(self, line):
         """Exits the program."""
@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
         """ creates BaseModel instance, saves it to JSON, prints the id """
         if arg == "":
             print("** class name missing **")
-        elif arg == "BaseModel":
+        elif arg == "BaseModel" or arg == "User":
             inst = eval(arg)()
             inst.save()
             print(inst.id)
