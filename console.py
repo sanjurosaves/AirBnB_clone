@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] != "BaseModel":
+        elif args[0] != "BaseModel" and args[0] != "User":
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -112,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         elif len(args) == 0:
             print("** class name missing **")
-        elif args[0] != "BaseModel":
+        elif args[0] != "BaseModel" and args[0] != "User":
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
