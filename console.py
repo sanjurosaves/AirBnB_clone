@@ -101,9 +101,10 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ overwrites Cmd.emptyline() """
         pass
-    
+
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute."""
+        """ Updates an instance based on the class name
+        and id by adding or updating attribute."""
         args = line.split()
         if len(args) == 3:
             print("** value missing **")
@@ -116,9 +117,14 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instance id missing **")
         else:
-              class_id = "{}.{}".format(args[0], args[1])
-              setattr(storage.all()[class_id], args[2], args[3])
-              storage.all()[class_id].save()
+            all_objs = storage.all()
+            class_id = "{}.{}".format(args[0], args[1])
+            for obj_id in all_objs.keys():
+                if str("BaseModel." + args[1]) == obj_id:
+                    setattr(all_objs[class_id], args[2], args[3])
+                    all_objs[class_id].save()
+                    return
+            print("** no instance found **")
 
 if __name__ == '__main__':
     prompt = HBNBCommand()
