@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
         """ creates BaseModel instance, saves it to JSON, prints the id """
         if arg == "":
             print("** class name missing **")
-        elif arg == "BaseModel" or arg == "User":
+        elif arg == "BaseModel":
             inst = eval(arg)()
             inst.save()
             print(inst.id)
