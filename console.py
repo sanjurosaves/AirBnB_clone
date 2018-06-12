@@ -101,6 +101,24 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ overwrites Cmd.emptyline() """
         pass
+    
+    def do_update(self, line):
+        """Updates an instance based on the class name and id by adding or updating attribute."""
+        args = line.split()
+        if len(args) == 3:
+            print("** value missing **")
+        elif len(args) == 2:
+            print("** attribute name missing **")
+        elif len(args) == 0:
+            print("** class name missing **")
+        elif args[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+              class_id = "{}.{}".format(args[0], args[1])
+              setattr(storage.all()[class_id], args[2], args[3])
+              storage.all()[class_id].save()
 
 if __name__ == '__main__':
     prompt = HBNBCommand()
