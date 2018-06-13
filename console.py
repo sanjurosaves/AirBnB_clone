@@ -131,17 +131,48 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, line):
         """ Updates an instance based on the class name
         and id by adding or updating attribute."""
+        all_objs = storage.all()
         args = line.split()
-        if len(args) == 3:
-            print("** value missing **")
-        elif len(args) == 2:
-            print("** attribute name missing **")
-        elif len(args) == 0:
+        if len(args) == 0:
             print("** class name missing **")
-        elif args[0] != "BaseModel" and args[0] != "User":
-            print("** class doesn't exist **")
         elif len(args) == 1:
-            print("** instance id missing **")
+            check = 0
+            for item in HBNBCommand.cls_names:
+                if item == args[0]:
+                    print("** instance id missing **")
+                    check = 1
+            if check == 0:
+                print("** class doesn't exist **")
+        elif len(args) == 2:
+            check = 0
+            check2 = 0
+            for item in HBNBCommand.cls_names:
+                if item == args[0]:
+                    check = 1
+            if check == 1:
+                for obj_id in all_objs.keys():
+                    if str(args[0] + "." + args[1]) == obj_id:
+                        print("** attribute name missing **")
+                        check2 = 1
+            if check == 0:
+                print("** class doesn't exist **")
+            elif check2 == 0:
+                print("** no instance found **")
+        elif len(args) == 3:
+            check = 0
+            check2 = 0
+            for item in HBNBCommand.cls_names:
+                if item == args[0]:
+                    check = 1
+            if check == 1:
+                for obj_id in all_objs.keys():
+                    if str(args[0] + "." + args[1]) == obj_id:
+                        print("** value missing **")
+                        check2 = 1
+            if check == 0:
+                print("** class doesn't exist **")
+            elif check2 == 0:
+                print("** no instance found **")
         else:
             all_objs = storage.all()
             class_id = "{}.{}".format(args[0], args[1])
