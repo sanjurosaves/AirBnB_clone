@@ -14,10 +14,11 @@ class BaseModel:
         """ Initialize the BaseModel class."""
         if len(kwargs) != 0:
             self.__dict__ = kwargs
-            self.created_at = datetime.datetime(
-                *map(int, re.split('[^\d]', self.created_at)[:]))
-            self.updated_at = datetime.datetime(
-                *map(int, re.split('[^\d]', self.updated_at)[:]))
+            if hasattr(self, 'created_at'):
+                self.created_at = datetime.datetime(
+                    *map(int, re.split('[^\d]', self.created_at)[:]))
+                self.updated_at = datetime.datetime(
+                    *map(int, re.split('[^\d]', self.updated_at)[:]))
 
         else:
             self.new_inst()
