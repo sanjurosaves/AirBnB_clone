@@ -92,12 +92,12 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             check = 0
+            check2 = 0
             for item in HBNBCommand.cls_names:
                 if item == args[0]:
                     check = 1
                     inst = eval(args[0])()
                     for obj_id in all_objs.keys():
-                        check2 = 0
                         if str(args[0] + "." + args[1]) == obj_id:
                             check2 = 1
                             obj = all_objs[obj_id]
