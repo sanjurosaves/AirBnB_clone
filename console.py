@@ -54,15 +54,17 @@ class HBNBCommand(cmd.Cmd):
         except:
             print("** instance id missing **")
             return
-
-        if cls == "BaseModel":
-            inst = BaseModel()
-            for obj_id in all_objs.keys():
-                if str("BaseModel." + cid) == obj_id:
-                    obj = all_objs[obj_id]
-                    print(obj)
-                    return
-            print("** no instance found **")
+        check = 0
+        for item in HBNBCommand.cls_names:
+            if item == cls:
+                inst = eval(cls)()
+                for obj_id in all_objs.keys():
+                    if str(cls + "." + cid) == obj_id:
+                        obj = all_objs[obj_id]
+                        print(obj)
+                        check = 1
+        if check == 0:
+            print("** no instance found **")                
 
     def do_all(self, line):
         """prints all string reps of all instances of all or specified class"""
@@ -102,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def emptyline(self):
+    def do_emptyline(self):
         """ overwrites Cmd.emptyline() """
         pass
 
