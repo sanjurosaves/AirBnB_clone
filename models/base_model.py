@@ -24,8 +24,8 @@ class BaseModel:
 
     def __str__(self):
         """Function returns string rep of the display function."""
-        return "[BaseModel] (" + str(self.id) + ") " \
-            + str(self.__dict__)
+        return ("[" + str(type(self).__name__) + "]" + " (" + str(self.id) +
+                ") " + str(self.__dict__))
 
     def new_inst(self):
         """creates new instance"""
