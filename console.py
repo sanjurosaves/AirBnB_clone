@@ -14,7 +14,8 @@ from models.user import User
 class HBNBCommand(cmd.Cmd):
     """Our command prompt."""
 
-    cls_names = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+    cls_names = ["BaseModel", "User", "State",
+                 "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, line):
         """Exits the program."""
@@ -39,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
                     check = 1
             if check == 0:
                 print("** class doesn't exist **")
-                
+
     def do_show(self, line):
         """ prints string rep of instance based on class and id """
         all_objs = storage.all()
@@ -122,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         print("** no instance found **")
             if check == 0:
-                print("** class doesn't exist **")                
+                print("** class doesn't exist **")
 
     def do_emptyline(self):
         """ overwrites Cmd.emptyline() """
