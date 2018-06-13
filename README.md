@@ -42,12 +42,13 @@ $
 #### Commands
 | Command | Syntax | Summary |
 | --- | --- | --- |
-| help | `help` | displays available commands |
 | all | `all <class>` | displays all objects in storage, or in specified class |
 | create | `create <class>` | creates new instance of specified Class |
 | destroy | `destroy <class> <id>` | deletes specified instance |
 | show | `show <class> <id>` | displays instance of specified class with all attributes | 
 | update | `update <class> <id> <attribute> <attribute_value>` | updates instance attribute |
+| help | `help` | displays available commands |
+| EOF | `EOF` | exits console |
 | quit | `quit` | exits console |
 
 ### Authors
