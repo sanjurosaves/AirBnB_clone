@@ -29,41 +29,47 @@ class HBNBCommand(cmd.Cmd):
         """ creates BaseModel instance, saves it to JSON, prints the id """
         if arg == "":
             print("** class name missing **")
-        check = 0
-        for item in HBNBCommand.cls_names:
-            if item == arg:
-                inst = eval(arg)()
-                inst.save()
-                print(inst.id)
-                check = 1
-        if check == 0:
-            print("** class doesn't exist **")
-
+        else:
+            check = 0
+            for item in HBNBCommand.cls_names:
+                if item == arg:
+                    inst = eval(arg)()
+                    inst.save()
+                    print(inst.id)
+                    check = 1
+            if check == 0:
+                print("** class doesn't exist **")
+                
     def do_show(self, line):
         """ prints string rep of instance based on class and id """
         all_objs = storage.all()
         args = line.split()
-        try:
-            cls = args[0]
-        except:
+        if len(args) == 0:
             print("** class name missing **")
-            return
-        try:
-            cid = args[1]
-        except:
-            print("** instance id missing **")
-            return
-        check = 0
-        for item in HBNBCommand.cls_names:
-            if item == cls:
-                inst = eval(cls)()
-                for obj_id in all_objs.keys():
-                    if str(cls + "." + cid) == obj_id:
-                        obj = all_objs[obj_id]
-                        print(obj)
-                        check = 1
-        if check == 0:
-            print("** no instance found **")                
+        elif len(args) == 1:
+            check = 0
+            for item in HBNBCommand.cls_names:
+                if item == args[0]:
+                    print("** instance id missing **")
+                    check = 1
+            if check == 0:
+                print("** class doesn't exist **")
+        else:
+            check = 0
+            for item in HBNBCommand.cls_names:
+                if item == args[0]:
+                    check = 1
+                    inst = eval(args[0])()
+                    for obj_id in all_objs.keys():
+                        check2 = 0
+                        if str(args[0] + "." + args[1]) == obj_id:
+                            check2 = 1
+                            obj = all_objs[obj_id]
+                            print(obj)
+                    if check2 == 0:
+                        print("** no instance found **")
+            if check == 0:
+                print("** class doesn't exist **")
 
     def do_all(self, line):
         """prints all string reps of all instances of all or specified class"""
@@ -96,19 +102,27 @@ class HBNBCommand(cmd.Cmd):
         check = 0
         if len(args) < 1:
             print("** class name missing **")
-        elif len(args) < 2:
-            print("** instance id missing **")
-        for item in HBNBCommand.cls_names:
-            if args[0] == item:
-                check = 1
-                key = ("{}.{}".format(args[0], args[1]))
-                new_obj = models.storage.all()
-                if key in new_obj.keys():
-                    del new_obj[key]
-                else:
-                    print("** no instance found **")
-        if check == 0:
-            print("** class doesn't exist **")                
+        elif len(args) == 1:
+            check = 0
+            for item in HBNBCommand.cls_names:
+                if item == args[0]:
+                    print("** instance id missing **")
+                    check = 1
+            if check == 0:
+                print("** class doesn't exist **")
+        else:
+            check = 0
+            for item in HBNBCommand.cls_names:
+                if args[0] == item:
+                    check = 1
+                    key = ("{}.{}".format(args[0], args[1]))
+                    new_obj = models.storage.all()
+                    if key in new_obj.keys():
+                        del new_obj[key]
+                    else:
+                        print("** no instance found **")
+            if check == 0:
+                print("** class doesn't exist **")                
 
     def do_emptyline(self):
         """ overwrites Cmd.emptyline() """
