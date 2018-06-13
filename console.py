@@ -8,7 +8,7 @@ from models.base_model import BaseModel
 from models import storage
 import models
 import models.engine
-from models.user  import User
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -48,7 +48,6 @@ class HBNBCommand(cmd.Cmd):
         except:
             print("** class name missing **")
             return
-
         try:
             cid = args[1]
         except:
@@ -75,34 +74,41 @@ class HBNBCommand(cmd.Cmd):
             cls = args[0]
         except:
             cls = ""
-
+        check = 0
         if cls == "":
+            check = 1
             for obj_id in all_objs.keys():
                 obj = all_objs[obj_id]
                 print(obj)
-        elif cls not in self.cls_names:
-            print("** class doesn't exist **")
         else:
-            for key, obj in all_objs.items():
-                if obj.__class__.__name__ == cls:
-                    print(obj)
+            for item in HBNBCommand.cls_names:
+                if item == cls:
+                    check = 1
+                    for key, obj in all_objs.items():
+                        if obj.__class__.__name__ == cls:
+                            print(obj)
+        if check == 0:
+            print("** class doesn't exist **")
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id."""
         args = line.split()
+        check = 0
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] != "BaseModel" and args[0] != "User":
-            print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
-        else:
-            key = ("{}.{}".format(args[0], args[1]))
-            new_obj = models.storage.all()
-            if key in new_obj.keys():
-                del new_obj[key]
-            else:
-                print("** no instance found **")
+        for item in HBNBCommand.cls_names:
+            if args[0] == item:
+                check = 1
+                key = ("{}.{}".format(args[0], args[1]))
+                new_obj = models.storage.all()
+                if key in new_obj.keys():
+                    del new_obj[key]
+                else:
+                    print("** no instance found **")
+        if check == 0:
+            print("** class doesn't exist **")                
 
     def do_emptyline(self):
         """ overwrites Cmd.emptyline() """
