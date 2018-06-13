@@ -17,6 +17,12 @@ class HBNBCommand(cmd.Cmd):
     cls_names = ["BaseModel", "User", "State",
                  "City", "Amenity", "Place", "Review"]
 
+    def emptyline(self):
+        """ overwrites Cmd.emptyline() """
+        if self.lastcmd:
+            self.lastcmd = ""
+            return self.onecmd('\n')
+
     def do_quit(self, line):
         """Exits the program."""
         return True
@@ -125,10 +131,6 @@ class HBNBCommand(cmd.Cmd):
                             print(obj)
         if check == 0:
             print("** class doesn't exist **")
-
-    def do_emptyline(self):
-        """ overwrites Cmd.emptyline() """
-        pass
 
     def do_update(self, line):
         """ Updates an instance based on the class name
