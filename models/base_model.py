@@ -35,12 +35,16 @@ class BaseModel:
         models.storage.new(self)
 
     def save(self):
+        """saves instance"""
         self.updated_at = datetime.datetime.now()
         models.storage.save()
 
     def to_dict(self):
         """Adds items to a_dict."""
-        self.__dict__['created_at'] = str(self.created_at)
-        self.__dict__['updated_at'] = str(self.updated_at)
-        self.__dict__['__class__'] = self.__class__.__name__
-        return self.__dict__
+        new_dict = dict(self.__dict__)
+        new_dict['__class__'] = type(self).__name__
+        new_dict['created_at'] = datetime.datetime.isoformat(
+            self.__dict__['created_at'])
+        new_dict['updated_at'] = datetime.datetime.isoformat(
+            self.__dict__['updated_at'])
+        return new_dict
