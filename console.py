@@ -186,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
             all_objs = storage.all()
             class_id = "{}.{}".format(args[0], args[1])
             for obj_id in all_objs.keys():
-                if str("BaseModel." + args[1]) == obj_id:
+                if str(args[0] + "." + args[1]) == obj_id:
                     setattr(all_objs[class_id], args[2], args[3])
                     all_objs[class_id].save()
                     return
