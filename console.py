@@ -152,7 +152,7 @@ class HBNBCommand(cmd.Cmd):
                     check = 1
             if check == 0:
                 print("** class doesn't exist **")
-        elif len(args) == 2:
+        elif len(args) < 4:
             check = 0
             check2 = 0
             for item in HBNBCommand.cls_names:
@@ -161,23 +161,12 @@ class HBNBCommand(cmd.Cmd):
             if check == 1:
                 for obj_id in all_objs.keys():
                     if str(args[0] + "." + args[1]) == obj_id:
-                        print("** attribute name missing **")
-                        check2 = 1
-            if check == 0:
-                print("** class doesn't exist **")
-            elif check2 == 0:
-                print("** no instance found **")
-        elif len(args) == 3:
-            check = 0
-            check2 = 0
-            for item in HBNBCommand.cls_names:
-                if item == args[0]:
-                    check = 1
-            if check == 1:
-                for obj_id in all_objs.keys():
-                    if str(args[0] + "." + args[1]) == obj_id:
-                        print("** value missing **")
-                        check2 = 1
+                        if len(args) == 2:
+                            print("** attribute name missing **")
+                            check2 = 1
+                        else:
+                            print("** value missing **")
+                            check2 = 1
             if check == 0:
                 print("** class doesn't exist **")
             elif check2 == 0:
