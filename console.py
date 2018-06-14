@@ -4,6 +4,7 @@ The entry point for the command interpreter interface.
 """
 
 import cmd
+import sys
 from models.base_model import BaseModel
 from models import storage
 import models
@@ -21,6 +22,14 @@ class HBNBCommand(cmd.Cmd):
 
     cls_names = ["BaseModel", "User", "State",
                  "City", "Amenity", "Place", "Review"]
+
+    def precmd(self, line):
+        preline = []
+        if ".all" in line:
+            preline = line.split('(')
+            preline2 = preline[0].split('.')
+            line = str(preline2[1] + " " + preline2[0])
+            return(line)
 
     def emptyline(self):
         """ overwrites Cmd.emptyline() """
