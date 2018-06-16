@@ -23,14 +23,6 @@ class HBNBCommand(cmd.Cmd):
     cls_names = ["BaseModel", "User", "State",
                  "City", "Amenity", "Place", "Review"]
 
-    def precmd(self, line):
-        preline = []
-        if ".all" in line:
-            preline = line.split('(')
-            preline2 = preline[0].split('.')
-            line = str(preline2[1] + " " + preline2[0])
-            return(line)
-
     def emptyline(self):
         """ overwrites Cmd.emptyline() """
         if self.lastcmd:
