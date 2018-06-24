@@ -55,6 +55,7 @@ h4 {
     margin-bottom: 0;
     margin-left: 45px;
     padding-bottom: 6px;
+    white-space: nowrap;
 }
 
 .popover {
