@@ -8,3 +8,8 @@ body {
     font-size: 14px;
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+body .container {
+    margin: 30px auto;
+    max-width: 1000px;
+}
